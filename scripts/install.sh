@@ -12,9 +12,16 @@ case "$ARCH" in
 esac
 
 if [ "$VERSION" = "latest" ]; then
-  URL="https://github.com/${REPO}/releases/latest/download/deploy-doctor_${OS}_${ARCH}.tar.gz"
+  LATEST_TAG="$(curl -fsSL "https://api.github.com/repos/${REPO}/releases/latest" | sed -n 's/.*"tag_name":[[:space:]]*"\([^"]*\)".*/\1/p' | head -n1)"
+  if [ -z "$LATEST_TAG" ]; then
+    echo "failed to resolve latest release tag"
+    exit 1
+  fi
+  VERSION_NUM="${LATEST_TAG#v}"
+  URL="https://github.com/${REPO}/releases/download/${LATEST_TAG}/deploy-doctor_${VERSION_NUM}_${OS}_${ARCH}.tar.gz"
 else
-  URL="https://github.com/${REPO}/releases/download/${VERSION}/deploy-doctor_${VERSION#v}_${OS}_${ARCH}.tar.gz"
+  VERSION_NUM="${VERSION#v}"
+  URL="https://github.com/${REPO}/releases/download/${VERSION}/deploy-doctor_${VERSION_NUM}_${OS}_${ARCH}.tar.gz"
 fi
 
 TMP_DIR="$(mktemp -d)"
