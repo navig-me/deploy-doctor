@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"docker-doctor/internal/model"
+	"deploy-doctor/internal/model"
 )
 
 const JSONSchemaVersion = "v1"

@@ -1,14 +1,14 @@
 package scanner
 
 import (
-	"docker-doctor/internal/model"
+	"deploy-doctor/internal/model"
 
 	"context"
 	"fmt"
 	"sort"
 	"sync"
 
-	"docker-doctor/internal/rules"
+	"deploy-doctor/internal/rules"
 )
 
 // RuleError keeps rule-level failure isolated from overall scan flow.

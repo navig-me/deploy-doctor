@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"testing"
 
-	"docker-doctor/internal/model"
+	"deploy-doctor/internal/model"
 )
 
 type fakeRule struct {

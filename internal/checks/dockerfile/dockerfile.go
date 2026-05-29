@@ -6,7 +6,7 @@ import (
 	"regexp"
 	"strings"
 
-	"docker-doctor/internal/model"
+	"deploy-doctor/internal/model"
 )
 
 type Dockerfile struct {

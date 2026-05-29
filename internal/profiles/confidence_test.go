@@ -3,7 +3,7 @@ package profiles
 import (
 	"testing"
 
-	"docker-doctor/internal/model"
+	"deploy-doctor/internal/model"
 )
 
 func TestApplyConfidenceLabels(t *testing.T) {

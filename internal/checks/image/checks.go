@@ -7,7 +7,7 @@ import (
 	"runtime"
 	"strings"
 
-	"docker-doctor/internal/model"
+	"deploy-doctor/internal/model"
 )
 
 type Metadata struct {

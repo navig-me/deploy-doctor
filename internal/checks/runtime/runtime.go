@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"docker-doctor/internal/model"
+	"deploy-doctor/internal/model"
 )
 
 type ContainerInfo struct {

@@ -5,7 +5,7 @@ import (
 	"regexp"
 	"strings"
 
-	"docker-doctor/internal/model"
+	"deploy-doctor/internal/model"
 )
 
 var envRefPatterns = []*regexp.Regexp{

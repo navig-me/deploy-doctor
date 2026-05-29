@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO="navig-me/docker-doctor"
+REPO="navig-me/deploy-doctor"
 VERSION="${VERSION:-latest}"
 OS="$(uname | tr '[:upper:]' '[:lower:]')"
 ARCH="$(uname -m)"

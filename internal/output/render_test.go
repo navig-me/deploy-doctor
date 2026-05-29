@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"docker-doctor/internal/model"
+	"deploy-doctor/internal/model"
 )
 
 func sample() model.ScanResult {

@@ -1,6 +1,6 @@
 package profiles
 
-import "docker-doctor/internal/model"
+import "deploy-doctor/internal/model"
 
 func ConfidenceForProfile(profileName string) string {
 	if profileName == "generic" {

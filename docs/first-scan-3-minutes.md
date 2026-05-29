@@ -14,7 +14,7 @@ brew install deploy-doctor
 
 ### Curl installer
 ```bash
-curl -fsSL https://raw.githubusercontent.com/navig-me/docker-doctor/main/scripts/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/navig-me/deploy-doctor/main/scripts/install.sh | bash
 ```
 
 ## 2. Run first scan

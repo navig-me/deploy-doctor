@@ -1,6 +1,6 @@
 package scoring
 
-import "docker-doctor/internal/model"
+import "deploy-doctor/internal/model"
 
 const (
 	maxScore              = 100

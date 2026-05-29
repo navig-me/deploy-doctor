@@ -4,7 +4,7 @@ import (
 	"context"
 	"sort"
 
-	"docker-doctor/internal/model"
+	"deploy-doctor/internal/model"
 )
 
 // ScanContext carries scan-time inputs for rule evaluation.

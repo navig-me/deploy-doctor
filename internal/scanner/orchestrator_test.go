@@ -1,7 +1,7 @@
 package scanner
 
 import (
-	"docker-doctor/internal/model"
+	"deploy-doctor/internal/model"
 
 	"context"
 	"errors"
@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"docker-doctor/internal/rules"
+	"deploy-doctor/internal/rules"
 )
 
 type testRule struct {

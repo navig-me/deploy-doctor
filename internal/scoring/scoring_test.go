@@ -3,7 +3,7 @@ package scoring
 import (
 	"testing"
 
-	"docker-doctor/internal/model"
+	"deploy-doctor/internal/model"
 )
 
 func TestCalculateScore(t *testing.T) {

@@ -1,4 +1,4 @@
-module docker-doctor
+module deploy-doctor
 
 go 1.22
 

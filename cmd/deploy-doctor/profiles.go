@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"docker-doctor/internal/profiles"
+	"deploy-doctor/internal/profiles"
 	"github.com/spf13/cobra"
 )
 

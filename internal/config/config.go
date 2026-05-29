@@ -6,7 +6,7 @@ import (
 	"os"
 	"strings"
 
-	"docker-doctor/internal/model"
+	"deploy-doctor/internal/model"
 	"gopkg.in/yaml.v3"
 )
 
