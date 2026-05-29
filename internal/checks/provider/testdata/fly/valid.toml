@@ -1,0 +1,3 @@
+app = "my-app"
+[http_service]
+internal_port = 8080

@@ -12,7 +12,7 @@ import (
 
 func TestScanAutoProfileConfidenceFromSignals(t *testing.T) {
 	d := t.TempDir()
-	_ = os.WriteFile(filepath.Join(d, "render.yaml"), []byte("healthCheckPath: /health\nstartCommand: run"), 0o644)
+	_ = os.WriteFile(filepath.Join(d, "render.yaml"), []byte("services:\n  - type: web\n    startCommand: run\n    healthCheckPath: /health\n"), 0o644)
 	_ = os.WriteFile(filepath.Join(d, "Dockerfile"), []byte("FROM alpine\nCMD [\"sh\"]\nUSER 1000\n"), 0o644)
 	cwd, _ := os.Getwd(); defer func(){ _ = os.Chdir(cwd) }(); _ = os.Chdir(d)
 	cmd := newRootCmd(); out := &bytes.Buffer{}; cmd.SetOut(out); cmd.SetErr(out)

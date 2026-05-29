@@ -2,6 +2,8 @@ package main
 
 import (
 	"bytes"
+	"os"
+	"path/filepath"
 	"strings"
 	"testing"
 )
@@ -33,7 +35,14 @@ func TestProfilesExplainCommand(t *testing.T) {
 }
 
 func TestProfilesListRecommendedCommand(t *testing.T) {
-	t.Parallel()
+	d := t.TempDir()
+	if err := os.WriteFile(filepath.Join(d, "lightsail.yml"), []byte("container:\npublicEndpoint: 80\n"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	cwd, _ := os.Getwd()
+	defer func() { _ = os.Chdir(cwd) }()
+	_ = os.Chdir(d)
+
 	cmd := newRootCmd()
 	out := &bytes.Buffer{}
 	cmd.SetOut(out)
@@ -41,7 +50,7 @@ func TestProfilesListRecommendedCommand(t *testing.T) {
 	cmd.SetArgs([]string{"profiles", "list", "--recommended"})
 	if err := cmd.Execute(); err != nil { t.Fatalf("execute failed: %v", err) }
 	got := out.String()
-	if !strings.Contains(got, "render") { t.Fatalf("expected recommended output, got: %s", got) }
+	if !strings.Contains(got, "lightsail") || !strings.Contains(got, "confidence=") { t.Fatalf("expected lightsail recommendation output, got: %s", got) }
 }
 
 func TestScanAutoProfileFlag(t *testing.T) {

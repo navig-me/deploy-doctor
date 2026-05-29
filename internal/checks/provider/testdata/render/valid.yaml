@@ -1,0 +1,5 @@
+services:
+  - type: web
+    name: app
+    startCommand: npm start
+    healthCheckPath: /health

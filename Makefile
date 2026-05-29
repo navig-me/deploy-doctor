@@ -14,6 +14,11 @@ lint:
 coverage:
 	./scripts/check_coverage.sh 60
 
+release-check:
+	go test ./...
+	go vet ./...
+	git diff --quiet && git diff --cached --quiet || (echo "git tree dirty"; exit 1)
+
 test-integration:
 	DOCKER_RUNTIME_TEST=1 go test ./test/integration -v
 

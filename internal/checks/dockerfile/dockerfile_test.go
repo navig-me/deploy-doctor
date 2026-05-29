@@ -5,7 +5,7 @@ import "testing"
 func TestParseDockerfileReliably(t *testing.T) {
 	t.Parallel()
 	df, err := Parse("FROM golang:1.22\nRUN echo hi")
-	if err != nil || len(df.Stages) != 1 { t.Fatalf("parse failed: %v", err) }
+	if err != nil || len(df.BaseImageList) != 1 || len(df.Instructions) < 2 { t.Fatalf("parse failed: %v", err) }
 }
 
 func TestRules(t *testing.T) {
@@ -30,5 +30,33 @@ func TestRules(t *testing.T) {
 			for _, is := range issues { if is.ID == tt.ruleID { found = true; break } }
 			if !found { t.Fatalf("expected %s in issues: %+v", tt.ruleID, issues) }
 		})
+	}
+}
+
+func TestRuleEvidenceIncludesLineColumnMapping(t *testing.T) {
+	t.Parallel()
+	df, err := Parse("FROM ubuntu:22.04\nRUN apt-get update && apt-get install -y curl\nCMD [\"bash\"]\nUSER app\n")
+	if err != nil { t.Fatalf("parse: %v", err) }
+	issues := RunChecks(df)
+	var aptIssueFound bool
+	for _, is := range issues {
+		if is.ID == "DF_APT_0001" {
+			aptIssueFound = true
+			if is.Evidence == nil {
+				t.Fatalf("expected evidence for DF_APT_0001")
+			}
+			if got := is.Evidence["line"]; got != 2 {
+				t.Fatalf("expected line=2, got %v", got)
+			}
+			if got := is.Evidence["column"]; got != 1 {
+				t.Fatalf("expected column=1, got %v", got)
+			}
+			if got := is.Evidence["keyword"]; got != "RUN" {
+				t.Fatalf("expected keyword=RUN, got %v", got)
+			}
+		}
+	}
+	if !aptIssueFound {
+		t.Fatalf("expected DF_APT_0001 issue")
 	}
 }

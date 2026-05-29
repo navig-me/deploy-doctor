@@ -1,0 +1,1 @@
+{"requiresCompatibilities":["FARGATE"],"networkMode":"awsvpc","containerDefinitions":[{"portMappings":[{"containerPort":8080}]}]}

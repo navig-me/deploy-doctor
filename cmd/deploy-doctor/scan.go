@@ -45,13 +45,30 @@ func runStaticScan(cwd, profileName string, signals []providercheck.Signal) ([]m
 	p, err := profiles.Get(profileName)
 	if err != nil { return nil, err }
 	issues := make([]model.Issue, 0)
-	if df, err := dockerfile.ParseFile(filepath.Join(cwd, "Dockerfile")); err == nil { issues = append(issues, dockerfile.RunChecks(df)...)}
+	if df, err := dockerfile.ParseFile(filepath.Join(cwd, "Dockerfile")); err == nil {
+		issues = append(issues, dockerfile.RunChecks(df)...)
+	} else if !os.IsNotExist(err) {
+		issues = append(issues, model.Issue{
+			ID:         "DF_PARSE_0001",
+			Title:      "Dockerfile parse failed",
+			Severity:   model.SeverityWarning,
+			Category:   model.CategoryDockerfile,
+			Confidence: "high",
+			Evidence: map[string]interface{}{
+				"file":  "Dockerfile",
+				"error": err.Error(),
+			},
+			Impact: "Static Dockerfile checks were skipped due to parse failure, reducing scan coverage.",
+			Fix:    "Fix Dockerfile syntax or simplify unsupported constructs, then rerun deploy-doctor scan.",
+		})
+	}
 	issues = append(issues, imagecheck.CheckDockerignore(cwd)...)
 	issues = append(issues, imagecheck.CheckContextJunk(cwd)...)
 	if m, err := imagecheck.ReadMetadata(filepath.Join(cwd, ".deploy-doctor-image.json")); err == nil { t:=imagecheck.Thresholds{SizeWarnMB:p.Thresholds.ImageSizeWarnMB,SizeCriticalMB:p.Thresholds.ImageSizeCriticalMB,LayerWarn:p.Thresholds.LayerWarnCount}; issues=append(issues,imagecheck.CheckImageMetadata(m,t)...)}
 	if dbURL := os.Getenv("DATABASE_URL"); dbURL != "" { issues = append(issues, envdb.CheckDBURL(dbURL)...)}
 	if os.Getenv("APP_DEBUG") == "true" || os.Getenv("DEBUG") == "true" { issues = append(issues, envdb.CheckUnsafeValues(map[string]string{"DEBUG":"true"})...)}
 	issues = append(issues, providercheck.ProviderEvidenceIssues(profileName, signals)...)
+	issues = append(issues, providercheck.ProviderValidationIssues(profileName, signals)...)
 	issues = profiles.ApplyConfidence(profileName, issues)
 	issues = tuneFalsePositives(profileName, issues)
 	sort.SliceStable(issues, func(i,j int) bool { if issues[i].ID==issues[j].ID { return issues[i].Title < issues[j].Title }; return issues[i].ID < issues[j].ID })

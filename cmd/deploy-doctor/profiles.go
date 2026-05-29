@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
+	"os"
 
+	providercheck "deploy-doctor/internal/checks/provider"
 	"deploy-doctor/internal/profiles"
 	"github.com/spf13/cobra"
 )
@@ -21,8 +23,14 @@ func newProfilesListCmd() *cobra.Command {
 		Short: "List available profiles",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if recommended {
-				for _, p := range []string{"render", "flyio"} {
-					cmd.Println(p)
+				cwd, _ := os.Getwd()
+				signals := providercheck.DetectSignals(cwd)
+				for _, s := range signals {
+					reason := ""
+					if f, ok := s.Evidence["file"]; ok {
+						reason = " file=" + f
+					}
+					cmd.Printf("%s confidence=%s%s\n", s.Profile, s.Confidence, reason)
 				}
 				return nil
 			}

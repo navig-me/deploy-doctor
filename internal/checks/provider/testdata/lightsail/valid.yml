@@ -1,0 +1,6 @@
+container:
+  app:
+    image: repo/app:latest
+publicEndpoint:
+  containerName: app
+  containerPort: 8080
