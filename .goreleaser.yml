@@ -1,0 +1,21 @@
+project_name: deploy-doctor
+
+builds:
+  - id: deploy-doctor
+    main: ./cmd/deploy-doctor
+    binary: deploy-doctor
+    goos: [linux, darwin, windows]
+    goarch: [amd64, arm64]
+
+archives:
+  - id: default
+    formats: [tar.gz]
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+
+checksum:
+  name_template: checksums.txt
+
+release:
+  github:
+    owner: navig-me
+    name: docker-doctor

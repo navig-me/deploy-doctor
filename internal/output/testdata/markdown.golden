@@ -1,0 +1,7 @@
+# Deploy Doctor Report
+
+- Score: **72/100**
+- Status: **risky**
+
+## Issues
+- `DF_BASE_0001` **warning**: Base image may be oversized

@@ -1,0 +1,9 @@
+stages:
+  - test
+
+deploy_doctor_scan:
+  stage: test
+  image: golang:1.22
+  script:
+    - make build
+    - ./bin/deploy-doctor scan --fail-on warning

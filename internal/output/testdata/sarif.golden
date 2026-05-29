@@ -1,0 +1,19 @@
+{
+  "runs": [
+    {
+      "results": [
+        {
+          "RuleID": "DF_BASE_0001",
+          "Level": "warning",
+          "Message": "Base image may be oversized"
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "deploy-doctor"
+        }
+      }
+    }
+  ],
+  "version": "2.1.0"
+}

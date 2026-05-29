@@ -1,0 +1,15 @@
+name: 'Deploy Doctor'
+description: 'Run deploy-doctor scan in CI'
+inputs:
+  args:
+    description: 'Arguments for deploy-doctor scan'
+    required: false
+    default: '--fail-on warning'
+runs:
+  using: 'composite'
+  steps:
+    - shell: bash
+      run: |
+        set -euo pipefail
+        make build
+        ./bin/deploy-doctor scan ${{ inputs.args }}

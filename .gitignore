@@ -1,0 +1,7 @@
+bin/
+.DS_Store
+
+# Local agent/codex artifacts
+AGENTS.md
+IDEA.txt
+CODEX_GUIDE.md

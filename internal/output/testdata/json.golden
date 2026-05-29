@@ -1,0 +1,30 @@
+{
+  "schema_version": "v1",
+  "result": {
+    "score": 72,
+    "status": "risky",
+    "issues": [
+      {
+        "id": "DF_BASE_0001",
+        "title": "Base image may be oversized",
+        "severity": "warning",
+        "category": "",
+        "impact": "",
+        "fix": "",
+        "docs_url": ""
+      }
+    ],
+    "summary": {
+      "critical": 0,
+      "warning": 0,
+      "suggestion": 0
+    },
+    "metadata": {
+      "profile": "",
+      "duration": "",
+      "platform": "",
+      "timestamp": "",
+      "version": ""
+    }
+  }
+}
