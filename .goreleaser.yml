@@ -30,7 +30,7 @@ brews:
       name: homebrew-deploy-doctor
       branch: master
       token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
-    folder: Formula
+    directory: Formula
     homepage: "https://github.com/navig-me/deploy-doctor"
     description: "Diagnose container deploy readiness"
     license: "MIT"
