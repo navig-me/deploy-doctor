@@ -6,6 +6,8 @@ builds:
     binary: deploy-doctor
     goos: [linux, darwin, windows]
     goarch: [amd64, arm64]
+    env:
+      - CGO_ENABLED=0
 
 archives:
   - id: default
@@ -18,4 +20,19 @@ checksum:
 release:
   github:
     owner: navig-me
-    name: docker-doctor
+    name: deploy-doctor
+
+brews:
+  - repository:
+      owner: navig-me
+      name: homebrew-deploy-doctor
+      branch: master
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
+    folder: Formula
+    homepage: "https://github.com/navig-me/deploy-doctor"
+    description: "Diagnose container deploy readiness"
+    license: "MIT"
+    test: |
+      system "#{bin}/deploy-doctor", "version"
+    install: |
+      bin.install "deploy-doctor"

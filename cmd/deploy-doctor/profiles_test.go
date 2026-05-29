@@ -53,5 +53,5 @@ func TestScanAutoProfileFlag(t *testing.T) {
 	cmd.SetArgs([]string{"scan", "--auto-profile"})
 	if err := cmd.Execute(); err != nil { t.Fatalf("execute failed: %v", err) }
 	got := out.String()
-	if !strings.Contains(got, "included=generic") { t.Fatalf("expected auto-profile output, got: %s", got) }
+	if !strings.Contains(got, "Auto profile detected:") { t.Fatalf("expected auto-profile output, got: %s", got) }
 }

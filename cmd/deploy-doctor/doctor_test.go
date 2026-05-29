@@ -15,5 +15,5 @@ func TestDoctorCommandPrintsDockerDiagnostic(t *testing.T) {
 	cmd.SetArgs([]string{"doctor"})
 	if err := cmd.Execute(); err != nil { t.Fatalf("execute failed: %v", err) }
 	got := out.String()
-	if !strings.Contains(got, "docker:") { t.Fatalf("expected docker diagnostic, got: %s", got) }
+	if !strings.Contains(got, "Docker daemon:") { t.Fatalf("expected docker diagnostic, got: %s", got) }
 }

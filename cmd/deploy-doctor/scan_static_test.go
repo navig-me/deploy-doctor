@@ -14,5 +14,5 @@ func TestScanStaticOnlyFlag(t *testing.T) {
 	cmd.SetErr(out)
 	cmd.SetArgs([]string{"scan", "--static-only"})
 	if err := cmd.Execute(); err != nil { t.Fatalf("execute failed: %v", err) }
-	if !strings.Contains(out.String(), "mode: static-only") { t.Fatalf("expected static-only marker, got: %s", out.String()) }
+	if !strings.Contains(out.String(), "Mode: static-only") { t.Fatalf("expected static-only marker, got: %s", out.String()) }
 }

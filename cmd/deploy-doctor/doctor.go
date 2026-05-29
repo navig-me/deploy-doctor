@@ -20,10 +20,11 @@ func newDoctorCmd() *cobra.Command {
 		Short: "Diagnose local tool/runtime prerequisites",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if dockerAvailable() {
-				cmd.Println("docker: available")
+				cmd.Println("Docker daemon: available")
+				cmd.Println("Runtime probes are enabled.")
 			} else {
-				cmd.Println("docker: unavailable")
-				cmd.Println("hint: run scan --static-only for Dockerless checks")
+				cmd.Println("Docker daemon: unavailable")
+				cmd.Println("Fallback: run `deploy-doctor scan --static-only` for static checks only.")
 			}
 			return nil
 		},
